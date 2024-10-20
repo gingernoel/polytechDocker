@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  application.name: backend
+  datasource:
+    url: jdbc:h2:mem:moviedb
+    username: sa
+    password: password
+
+logging.level:
+  spring: DEBUG
