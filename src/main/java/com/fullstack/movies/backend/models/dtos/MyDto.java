@@ -15,5 +15,5 @@ public class MyDto {
     @NotEmpty
     private String name;
     @NotNull
-    private int age;
+    private Integer age;
 }
