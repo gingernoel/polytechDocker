@@ -1,7 +1,6 @@
 package com.fullstack.movies.backend.controllers;
 
 import com.fullstack.movies.backend.models.dtos.MyDto;
-import com.fullstack.movies.backend.models.entities.MyEntity;
 import com.fullstack.movies.backend.services.MyEntityService;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
@@ -78,7 +77,7 @@ public class HelloWorldController {
     @GetMapping("/findAllByAge")
     public ResponseEntity<List<MyDto>> findAllByAge(@RequestParam Integer age) {
         log.info("Endpoint /hello-world/findAllByAge?age reached with age {}", age);
-        return ResponseEntity.ok(myEntityService.findAllByAge(age));
+        return ResponseEntity.ok(myEntityService.getAllByAge(age));
     }
 
     @GetMapping("/findAllByNameNative")

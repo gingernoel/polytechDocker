@@ -1,6 +1,8 @@
 package com.fullstack.movies.backend.services;
 
 import com.fullstack.movies.backend.configurations.properties.MyCustomProperties;
+import com.fullstack.movies.backend.exceptions.NotFoundException;
+import com.fullstack.movies.backend.exceptions.errors.MyEntityErrorCode;
 import com.fullstack.movies.backend.models.converters.MyEntityConverter;
 import com.fullstack.movies.backend.models.dtos.MyDto;
 import com.fullstack.movies.backend.models.entities.MyEntity;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service // used to mark this class as a Spring service
@@ -27,9 +30,6 @@ public class MyEntityService {
 
     @Transactional
     public MyDto registerMyEntity(MyDto dto) {
-        log.info("Custom value : {}", customValue);
-        log.info("Custom properties : {}", customProperties.getValue());
-
         log.info("Registering a new entity : {}", dto);
 
         MyEntity myEntity = MyEntity.builder()
@@ -41,7 +41,16 @@ public class MyEntityService {
     }
 
     @Transactional(readOnly = true)
-    public List<MyDto> findAllByAge(int age) {
+    public MyDto getById(UUID id) {
+        log.info("Finding entity by id : {}", id);
+
+        return myEntityRepository.findById(id)
+                .map(myEntityConverter::convert)
+                .orElseThrow(() -> new NotFoundException(MyEntityErrorCode.NOT_FOUND, id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<MyDto> getAllByAge(int age) {
         log.info("Finding all entities by age : {}", age);
 
         List<MyEntity> myEntities = myEntityRepository.findAllByAge(age);
@@ -56,5 +65,10 @@ public class MyEntityService {
         List<MyEntity> myEntities = myEntityRepository.findAllByNameNative(name);
 
         return myEntities.stream().map(myEntityConverter::convert).toList();
+    }
+
+    public void getCustomProperties() {
+        log.info("Custom value : {}", customValue);
+        log.info("Custom properties : {}", customProperties.getValue());
     }
 }

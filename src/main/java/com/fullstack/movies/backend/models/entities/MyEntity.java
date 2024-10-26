@@ -6,7 +6,8 @@ import lombok.*;
 import java.util.UUID;
 
 @Entity(name = "my_entity") // This annotation is used to mark the class as a JPA entity.
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
