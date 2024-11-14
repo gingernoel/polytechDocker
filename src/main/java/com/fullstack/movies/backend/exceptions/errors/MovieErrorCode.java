@@ -7,12 +7,10 @@ import lombok.ToString;
 @Getter
 @RequiredArgsConstructor
 @ToString
-public enum AuthenticationErrorCode implements ErrorCode {
-    JWT_EXPIRED("AUTH_004","JWT token expired"),
-    JWT_INVALID("AUTH_003","Invalid JWT token"),
-    UNAUTHORIZED("AUTH_002","Unauthorized"),
-    FAILED("AUTH_001","Authentication failed");
+public enum MovieErrorCode implements ErrorCode {
 
+    ALREADY_EXISTS("MOVIE_002", "Movie already exists"),
+    NOT_FOUND("MOVIE_001", "Movie not found");
 
     private final String code;
     private final String description;

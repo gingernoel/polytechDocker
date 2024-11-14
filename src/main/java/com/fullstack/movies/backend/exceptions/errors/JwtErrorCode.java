@@ -7,11 +7,10 @@ import lombok.ToString;
 @Getter
 @RequiredArgsConstructor
 @ToString
-public enum AuthenticationErrorCode implements ErrorCode {
-    JWT_EXPIRED("AUTH_004","JWT token expired"),
-    JWT_INVALID("AUTH_003","Invalid JWT token"),
-    UNAUTHORIZED("AUTH_002","Unauthorized"),
-    FAILED("AUTH_001","Authentication failed");
+public enum JwtErrorCode implements ErrorCode {
+
+    PRIVATE_KEY_INVALID("JWT_001", "Private key is invalid"),
+    PUBLIC_KEY_INVALID("JWT_002", "Public key is invalid");
 
 
     private final String code;

@@ -26,4 +26,3 @@ public abstract class AuditDateEntity {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
     private Instant updatedAt;
 }
-

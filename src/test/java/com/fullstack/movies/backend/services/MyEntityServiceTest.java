@@ -25,13 +25,10 @@ public class MyEntityServiceTest {
 
     @InjectMocks
     private MyEntityService myEntityService;
-
     @Mock
     private MyEntityRepository myEntityRepository;
-
     @Mock
     private MyEntityConverter myEntityConverter;
-
     @Mock
     static Clock clock;
 
@@ -42,8 +39,6 @@ public class MyEntityServiceTest {
 
     @BeforeAll
     public static void setUp() {
-        System.out.println("Setting up the test");
-
         clock = Clock.fixed(Instant.now(), Clock.systemDefaultZone().getZone());
 
         String defaultName = "John";
@@ -54,7 +49,7 @@ public class MyEntityServiceTest {
     }
 
     @Test
-    public void testRegisterMyEntity_ok_returnsMyDto() {
+    void testRegisterMyEntity_ok_returnsMyDto() {
 
         Mockito.when(myEntityRepository.save(Mockito.any())).thenReturn(defaultMyEntity);
         Mockito.when(myEntityConverter.convert(Mockito.any())).thenReturn(defaultMyDto);
@@ -62,12 +57,13 @@ public class MyEntityServiceTest {
         MyDto result = myEntityService.registerMyEntity(defaultMyDto);
 
         Mockito.verify(myEntityRepository, Mockito.times(1)).save(Mockito.any());
+        Mockito.verify(myEntityConverter, Mockito.times(1)).convert(Mockito.any());
 
         assertEquals(defaultMyDto, result);
     }
 
     @Test
-    public void testGetById_ok_returnsMyDto() {
+    void testGetById_ok_returnsMyDto() {
 
         Mockito.when(myEntityRepository.findById(Mockito.any(UUID.class))).thenReturn(Optional.of(defaultMyEntity));
         Mockito.when(myEntityConverter.convert(Mockito.any(MyEntity.class))).thenReturn(defaultMyDto);
@@ -80,7 +76,7 @@ public class MyEntityServiceTest {
     }
 
     @Test
-    public void testGetById_notFound_throwsNotFoundException() {
+    void testGetById_notFound_throwsNotFoundException() {
 
         Mockito.when(myEntityRepository.findById(Mockito.any(UUID.class))).thenReturn(Optional.empty());
 
@@ -104,8 +100,8 @@ public class MyEntityServiceTest {
                 .age(age)
                 .build();
 
-        entity.setCreatedAt(Instant.now(clock));
-        entity.setUpdatedAt(Instant.now(clock));
+        entity.setCreatedAt(Instant.now());
+        entity.setUpdatedAt(Instant.now());
 
         return entity;
     }

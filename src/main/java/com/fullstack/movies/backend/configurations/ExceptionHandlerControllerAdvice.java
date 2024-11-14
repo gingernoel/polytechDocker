@@ -79,6 +79,14 @@ public class ExceptionHandlerControllerAdvice {
                 .body(ErrorMessage.fromErrorCodeException(ex));
     }
 
+    @ExceptionHandler(ConflictException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorMessage> handleConflict(ConflictException ex) {
+        log.error("Conflict exception: {}", ex.getErrorCode().printableError());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(ErrorMessage.fromErrorCodeException(ex));
+    }
+
     @ExceptionHandler(InternalServerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorMessage> handleInternalServer(InternalServerException ex) {

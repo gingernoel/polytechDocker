@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public enum MyEntityErrorCode implements ErrorCode {
 
-    NOT_FOUND("MY_ENTITY_001", "MyEntity not found with id: %s");
+    NOT_FOUND("MY_ENTITY_001", "MyEntity not found");
 
 
     private final String code;

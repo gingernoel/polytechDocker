@@ -2,6 +2,7 @@ package com.fullstack.movies.backend.controllers;
 
 import com.fullstack.movies.backend.models.dtos.MyDto;
 import com.fullstack.movies.backend.services.MyEntityService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +20,17 @@ public class HelloWorldController {
 
     private final MyEntityService myEntityService;
 
+    private record StringResponse(String response) {}
+
     /**
      * covers the endpoint GET /hello-world
      * @return Hello World
      */
+    @ApiResponse(responseCode = "200", description = "Hello World")
     @GetMapping
-    public ResponseEntity<String> getHelloWorld() {
+    public ResponseEntity<StringResponse> getHelloWorld() {
         log.info("Endpoint /hello-world reached");
-        return ResponseEntity.ok("Hello World!");
+        return ResponseEntity.ok(new StringResponse("Hello World!"));
     }
 
     /**
@@ -34,9 +38,9 @@ public class HelloWorldController {
      * @return Hello + name
      */
     @GetMapping("/name")
-    public ResponseEntity<String> getHelloName(@RequestParam String name) {
+    public ResponseEntity<StringResponse> getHelloName(@RequestParam String name) {
         log.info("Endpoint /hello-world/name?name reached with name {}", name);
-        return ResponseEntity.ok("Hello " + name + "!");
+        return ResponseEntity.ok(new StringResponse("Hello " + name + "!"));
     }
 
     /**
@@ -44,12 +48,12 @@ public class HelloWorldController {
      * @return Hello + name || Hello World
      */
     @GetMapping("/name/optional")
-    public ResponseEntity<String> getHelloOptionalName(@RequestParam @Nullable String name) {
+    public ResponseEntity<StringResponse> getHelloOptionalName(@RequestParam @Nullable String name) {
         log.info("Endpoint /hello-world/name/optional?name reached with name {}", name);
         if (name != null) {
-            return ResponseEntity.ok("Hello " + name + "!");
+            return ResponseEntity.ok(new StringResponse("Hello " + name + "!"));
         } else {
-            return ResponseEntity.ok("Hello World!");
+            return ResponseEntity.ok(new StringResponse("Hello World!"));
         }
     }
 
@@ -58,9 +62,9 @@ public class HelloWorldController {
      *
      */
     @GetMapping("/name/{name}")
-    public ResponseEntity<String> getHelloNamePathVariable(@PathVariable String name) {
+    public ResponseEntity<StringResponse> getHelloNamePathVariable(@PathVariable String name) {
         log.info("Endpoint /hello-world/name/{name} with name {}", name);
-        return ResponseEntity.ok("Hello " + name + "!");
+        return ResponseEntity.ok(new StringResponse("Hello " + name + "!"));
     }
 
     /**

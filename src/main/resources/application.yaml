@@ -20,8 +20,15 @@ spring:
     console:
       enabled: true # Enable H2 console served on /h2-console
 
+jwt:
+  privateKey: MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgO8Nm9Rv9Kz2J7TLtdoIjHDL5Mo4WCWS0ixQfGwxBqGahRANCAAQpbN6OWGmhJFO99NzDu89U2HjIFzIDw8417Y7LFqTJ3+FJXv99EDPjHfJhZKkuD66FEjUflmadCFHdy1dkss1j
+  publicKey: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEKWzejlhpoSRTvfTcw7vPVNh4yBcyA8PONe2Oyxakyd/hSV7/fRAz4x3yYWSpLg+uhRI1H5ZmnQhR3ctXZLLNYw==
+  validity: 3600 # 1 hour
+  algorithm: EC
+  issuer: backend-movie
+
 logging.level:
-  spring: DEBUG
+  com.fullstack.movies.backend: DEBUG
 
 custom:
   value: 42
